@@ -1,1 +1,1 @@
-## Quasi-2d
+## 1d and Quasi-2d
