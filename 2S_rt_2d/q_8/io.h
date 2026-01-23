@@ -31,9 +31,12 @@ void initial_setting_wri(
     H5::DataSpace dataspace_time(1, dims_time); 
     H5::DataSet dataset_time = file.createDataSet("time_vector", H5::PredType::NATIVE_UINT, dataspace_time); 
     dataset_time.write(t_vec.data(), H5::PredType::NATIVE_UINT); 
-    hsize_t dims_res[3] = {1, Lx, Ly}; 
-    hsize_t maxdims_res[3] = {H5S_UNLIMITED, Lx, Ly}; 
-    hsize_t chunk_dims[3] = {1, Lx, Ly}; 
+    hsize_t dims_res[3] = {1, Ly, Lx}; 
+    // hsize_t dims_res[3] = {1, Lx, Ly}; 
+    hsize_t maxdims_res[3] = {H5S_UNLIMITED, Ly, Lx}; 
+    // hsize_t maxdims_res[3] = {H5S_UNLIMITED, Lx, Ly}; 
+    hsize_t chunk_dims[3] = {1, Ly, Lx}; 
+    // hsize_t chunk_dims[3] = {1, Lx, Ly}; 
     H5::DSetCreatPropList prop; 
     prop.setChunk(3, chunk_dims); 
     H5::DataSpace dataspace_res(3, dims_res, maxdims_res); 
@@ -125,7 +128,8 @@ void results_wri(
     H5::DataSet res_R7B = file.openDataSet("results_R7B"); 
     H5::DataSet res_R8B = file.openDataSet("results_R8B"); 
     H5::DataSet res_TB = file.openDataSet("results_TB"); 
-    hsize_t new_size[3] = {j+1, Lx, Ly}; 
+    hsize_t new_size[3] = {j+1, Ly, Lx}; 
+    // hsize_t new_size[3] = {j+1, Lx, Ly}; 
     res_R1A.extend(new_size); 
     res_R2A.extend(new_size); 
     res_R3A.extend(new_size); 
@@ -163,7 +167,8 @@ void results_wri(
     H5::DataSpace filespace8B = res_R8B.getSpace(); 
     H5::DataSpace filespaceTB = res_TB.getSpace(); 
     hsize_t offset[3] = {j, 0, 0}; 
-    hsize_t count[3] = {1, Lx, Ly}; 
+    hsize_t count[3] = {1, Ly, Lx}; 
+    // hsize_t count[3] = {1, Lx, Ly}; 
     filespace1A.selectHyperslab(H5S_SELECT_SET, count, offset); 
     filespace2A.selectHyperslab(H5S_SELECT_SET, count, offset); 
     filespace3A.selectHyperslab(H5S_SELECT_SET, count, offset); 
